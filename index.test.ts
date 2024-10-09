@@ -1,5 +1,5 @@
 import deepFind from "./index";
-import { nested } from "./data";
+import { nested, nestedArr } from "./data";
 
 describe('handles a simple object', () => {
   const simpleObject = { id: 1, username: 'oceanblue', fullname: 'Jenna Blue'};
@@ -27,8 +27,26 @@ describe('handles a nested object', () => {
     expect(deepFind(nested, 'uanderson29')).toBe(false);
   });
   test(`Given a nested object
-        And the passed in username does exist under a differnt key
+        And the passed in username exists, but under a differnt key
         Then false is returned`, () => {
     expect(deepFind(nested, 'Lynn Brown')).toBe(false);
   });
-})
+});
+
+describe('handles a nested array', () => {
+  test(`Given a nested array
+        And the passed in username exists in the data
+        Then true is returned`, () => {
+    expect(deepFind(nestedArr, 'stred01')).toBe(true);
+  });
+  test(`Given a nested array
+        And the passed in username does not exist in the data
+        Then false is returned`, () => {
+    expect(deepFind(nestedArr, 'rose77')).toBe(false)
+  });
+  test(`Given a nested array
+        And the passed in username exists, but under a differnt key
+        Then false is returned`, () => {
+    expect(deepFind(nestedArr, 'Manchester')).toBe(false);
+  });
+});
